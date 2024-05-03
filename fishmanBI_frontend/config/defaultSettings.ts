@@ -1,7 +1,7 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
 
 /**
- * 默认设置
+ * @name
  */
 const Settings: ProLayoutProps & {
   pwa?: boolean;
@@ -15,8 +15,9 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '鱼皮前端万用模板',
+  title: 'Ant Design Pro',
   pwa: true,
+  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
