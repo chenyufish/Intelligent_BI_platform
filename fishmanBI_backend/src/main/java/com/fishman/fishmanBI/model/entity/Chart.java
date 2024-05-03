@@ -18,7 +18,10 @@ public class Chart implements Serializable {
      */
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
-
+    /**
+     * 图表名
+     */
+    private String name;
     /**
      * 分析目标
      */
@@ -48,6 +51,16 @@ public class Chart implements Serializable {
      * 创建图表的用户id
      */
     private Long userId;
+
+    /**
+     * 任务状态
+     */
+    private String status;
+
+    /**
+     * 执行信息
+     */
+    private String execMessage;
 
     /**
      * 创建时间
