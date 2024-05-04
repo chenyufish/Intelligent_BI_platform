@@ -1,8 +1,7 @@
-import {outLogin} from '@/services/ant-design-pro/api';
 import {LogoutOutlined, SettingOutlined, UserOutlined} from '@ant-design/icons';
+import {useEmotionCss} from '@ant-design/use-emotion-css';
 import {history, useModel} from '@umijs/max';
 import {Spin} from 'antd';
-import {createStyles} from 'antd-style';
 import {stringify} from 'querystring';
 import type {MenuInfo} from 'rc-menu/lib/interface';
 import React, {useCallback} from 'react';
@@ -17,33 +16,14 @@ export type GlobalHeaderRightProps = {
 export const AvatarName = () => {
     const {initialState} = useModel('@@initialState');
     const {currentUser} = initialState || {};
-    return <span className="anticon">{currentUser?.username}</span>;
+    return <span className="anticon">{currentUser?.userName}</span>;
 };
-
-const useStyles = createStyles(({token}) => {
-    return {
-        action: {
-            display: 'flex',
-            height: '48px',
-            marginLeft: 'auto',
-            overflow: 'hidden',
-            alignItems: 'center',
-            padding: '0 8px',
-            cursor: 'pointer',
-            borderRadius: token.borderRadius,
-            '&:hover': {
-                backgroundColor: token.colorBgTextHover,
-            },
-        },
-    };
-});
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children}) => {
     /**
      * 退出登录，并且将当前的 url 保存
      */
     const loginOut = async () => {
-        await outLogin();
         const {search, pathname} = window.location;
         const urlParams = new URL(window.location.href).searchParams;
         /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -58,8 +38,21 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
             });
         }
     };
-    const {styles} = useStyles();
-
+    const actionClassName = useEmotionCss(({token}) => {
+        return {
+            display: 'flex',
+            height: '48px',
+            marginLeft: 'auto',
+            overflow: 'hidden',
+            alignItems: 'center',
+            padding: '0 8px',
+            cursor: 'pointer',
+            borderRadius: token.borderRadius,
+            '&:hover': {
+                backgroundColor: token.colorBgTextHover,
+            },
+        };
+    });
     const {initialState, setInitialState} = useModel('@@initialState');
 
     const onMenuClick = useCallback(
@@ -78,7 +71,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
     );
 
     const loading = (
-        <span className={styles.action}>
+        <span className={actionClassName}>
       <Spin
           size="small"
           style={{
@@ -95,7 +88,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
 
     const {currentUser} = initialState;
 
-    if (!currentUser || !currentUser.username) {
+    if (!currentUser || !currentUser.userName) {
         return loading;
     }
 

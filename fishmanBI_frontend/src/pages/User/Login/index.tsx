@@ -86,12 +86,6 @@ const Login: React.FC = () => {
                         maxWidth: '75vw',
                     }}
                     logo={<img alt="logo" src="/logo.svg"/>}
-                    title="fishman BI"
-                    subTitle={
-                        <a href="https://fishmanon.cn" target="_blank">
-                            fishman的小池塘
-                        </a>
-                    }
                     onFinish={async (values) => {
                         await handleSubmit(values as API.UserLoginRequest);
                     }}

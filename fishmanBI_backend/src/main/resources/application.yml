@@ -98,3 +98,8 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.fishman.fishmanBI.controller
+# 鱼聪明 AI 配置（https://yucongming.com/）
+yuapi:
+  client:
+    access-key: 2cdjgv2wedf8uysp61w26imm89o9v4gd
+    secret-key: nceknh8nxnvi1b32vf4jlepnbyi6q7fn
