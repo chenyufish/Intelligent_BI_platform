@@ -13,6 +13,7 @@ import com.fishman.fishmanBI.constant.UserConstant;
 import com.fishman.fishmanBI.exception.BusinessException;
 import com.fishman.fishmanBI.exception.ThrowUtils;
 import com.fishman.fishmanBI.manager.AiManager;
+import com.fishman.fishmanBI.manager.RedisLimiterManager;
 import com.fishman.fishmanBI.model.dto.chart.*;
 import com.fishman.fishmanBI.model.entity.Chart;
 import com.fishman.fishmanBI.model.entity.User;
@@ -58,6 +59,8 @@ public class ChartController {
     @Resource
     private ThreadPoolExecutor threadPoolExecutor;
 
+    @Resource
+    private RedisLimiterManager redisLimiterManager;
 
 
 
@@ -252,7 +255,7 @@ public class ChartController {
 
         User loginUser = userService.getLoginUser(request);
         // 限流判断，每个用户一个限流器
-
+        redisLimiterManager.doRateLimit("genChartByAi_"+loginUser.getId());
         long biModelId = CommonConstant.BI_MODEL_ID;
         // 分析需求：
         // 分析网站用户的增长情况
@@ -331,7 +334,8 @@ public class ChartController {
         ThrowUtils.throwIf(!validFileSuffixList.contains(suffix), ErrorCode.PARAMS_ERROR, "文件后缀非法");
 
         User loginUser = userService.getLoginUser(request);
-
+        //限流
+        redisLimiterManager.doRateLimit("genChartByAi_"+loginUser.getId());
         long biModelId = 1659171950288818178L;
         // 分析需求：
         // 分析网站用户的增长情况
@@ -433,7 +437,7 @@ public class ChartController {
         ThrowUtils.throwIf(!validFileSuffixList.contains(suffix), ErrorCode.PARAMS_ERROR, "文件后缀非法");
 
         User loginUser = userService.getLoginUser(request);
-
+        redisLimiterManager.doRateLimit("genChartByAi_"+loginUser.getId());
         long biModelId = 1659171950288818178L;
         // 分析需求：
         // 分析网站用户的增长情况
