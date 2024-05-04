@@ -16,7 +16,7 @@ export type GlobalHeaderRightProps = {
 export const AvatarName = () => {
     const {initialState} = useModel('@@initialState');
     const {currentUser} = initialState || {};
-    return <span className="anticon">{currentUser?.userName}</span>;
+    return <span className="anticon">{currentUser?.data.userName}</span>;
 };
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children}) => {
@@ -88,7 +88,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
 
     const {currentUser} = initialState;
 
-    if (!currentUser || !currentUser.userName) {
+    if (!currentUser || !currentUser.data.userName) {
         return loading;
     }
 
