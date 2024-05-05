@@ -1,4 +1,9 @@
 declare namespace API {
+  type addUsingGETParams = {
+    /** name */
+    name?: string;
+  };
+
   type BaseResponseBiResponse_ = {
     code?: number;
     data?: BiResponse;
